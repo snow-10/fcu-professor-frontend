@@ -1,5 +1,5 @@
 // 設定後端 API 的基礎網址
-const BASE_URL = 'https://fcu-professor-api-cehmg6hcahcgdmcx.eastasia-01.azurewebsites.net/api';
+const BASE_URL = 'http://localhost:3000/api';
 
 // 取得所有教授清單
 export const getProfessors = async () => {

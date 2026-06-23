@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+# 觸發條件：當推播(push)程式碼到 main 分支時觸發
+on:
+  push:
+    branches: [ "main" ] # ⚠️ 如果你的預設分支叫 master，請把這裡改成 master
+
+# 設定 GitHub Token 的權限，讓 Actions 有權限發布 Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 允許一個並發的部署
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # 使用 Node.js 20 版本
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # Vue 打包後的資料夾名稱
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

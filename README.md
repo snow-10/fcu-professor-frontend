@@ -34,14 +34,12 @@
 - [SQLite 3](https://www.sqlite.org/) (關聯式資料庫)
 - CORS
 
-## 🚀 本地端運行指南 (Getting Started)
+# 前後段端需分開啟動
 
-請確認您的開發環境已安裝 **Node.js** (建議 v20 LTS 或以上版本)。
+- 前端：https://github.com/snow-10/fcu-professor-frontend
 
-### 1. 取得專案程式碼
-```bash
-git clone [https://github.com/您的帳號/您的儲存庫名稱.git](https://github.com/您的帳號/您的儲存庫名稱.git)
-cd 您的儲存庫名稱
+- 後端：https://github.com/snow-10/fcu-professor-backend
+
 
 # frontend
 

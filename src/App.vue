@@ -15,7 +15,7 @@ import AppHeader from './components/AppHeader.vue'
 <style>
 /* 🌟 加入全域配色變數 */
 :root {
-  --fcu-maroon: #8A1C22; /* 逢甲酒紅 */
+  --fcu-maroon: #7d212a; /* 逢甲酒紅 */
   --iecs-blue: #2F5CA9;  /* 資工專屬藍 */
   --iecs-blue-light: #F0F4FA; /* 標籤淺藍底色 */
   --text-dark: #333333;

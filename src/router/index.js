@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// 引入我們剛剛寫好的首頁
 import HomeView from '../views/HomeView.vue'
 import DomainView from '../views/DomainView.vue'
 import ProfessorView from '../views/ProfessorView.vue'
@@ -23,7 +22,6 @@ const router = createRouter({
       name: 'professor',
       component: ProfessorView
     }
-    // 之後圖二 (DomainView) 和圖三 (ProfessorView) 的路由我們會加在這裡
   ]
 })
 

@@ -90,12 +90,12 @@ onMounted(async () => {
 /* 雙欄排版 */
 .main-layout {
   display: grid;
-  grid-template-columns: 320px 1fr; /* 左側固定 320px，右側自動填滿 */
+  grid-template-columns: 320px 1fr;
   gap: 60px;
   align-items: start;
 }
 
-/* --- 左側：教授卡片 --- */
+/* 教授姓名 */
 .professor-card {
   background: #FFFFFF;
   border: 2px solid var(--iecs-blue);
@@ -129,7 +129,7 @@ onMounted(async () => {
   letter-spacing: 1px;
 }
 
-/* --- 右側：學群與標籤雲 --- */
+/* 學群與專長 */
 .expertise-section {
   display: flex;
   flex-direction: column;
@@ -145,7 +145,7 @@ onMounted(async () => {
   border-bottom: none;
 }
 
-/* --- 學群標題 (現在是超連結) --- */
+/*學群標題跳轉 */
 .cluster-title-link {
   font-size: 1.25rem;
   color: var(--fcu-maroon);
@@ -153,12 +153,12 @@ onMounted(async () => {
   margin-bottom: 18px;
   display: inline-flex;
   align-items: center;
-  text-decoration: none; /* 移除超連結預設底線 */
+  text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
 .cluster-title-link:hover {
-  opacity: 0.8; /* 游標滑過時稍微變淡 */
+  opacity: 0.8;
 }
 
 .cluster-title-link .dot {
@@ -166,25 +166,25 @@ onMounted(async () => {
   font-size: 1rem;
 }
 
-/* 標題旁的小箭頭動畫 */
+/* 標題動畫 */
 .hover-arrow {
   font-size: 1rem;
   margin-left: 8px;
-  opacity: 0; /* 預設隱藏 */
+  opacity: 0;
   transform: translateX(-5px);
   transition: all 0.3s ease;
   color: var(--fcu-maroon);
 }
 
 .cluster-title-link:hover .hover-arrow {
-  opacity: 1; /* 滑過時顯示並往右滑動 */
+  opacity: 1;
   transform: translateX(0);
 }
 
-/* 標籤排版 (橫向排列) */
+/* 標籤排版 */
 .tags-container {
   display: flex;
-  flex-wrap: wrap; /* 自動換行 */
+  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -197,11 +197,10 @@ onMounted(async () => {
   font-size: 0.95rem;
   font-weight: 500;
   border: 1px solid transparent;
-  cursor: default; /* 🌟 改為預設游標，表示這不是按鈕 */
+  cursor: default;
   transition: background-color 0.2s ease;
 }
 
-/* 保留非常輕微的 Hover 變色增加畫面質感，但不會有浮起的按鈕感 */
 .static-tag:hover {
   background-color: #E2EAF5; 
 }

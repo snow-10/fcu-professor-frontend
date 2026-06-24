@@ -21,7 +21,7 @@ defineProps({
 <style scoped>
 .breadcrumbs {
   font-size: 16px;
-  color: #888; /* 參考手繪圖的灰色字體 */
+  color: #888;
   margin: 20px 0;
   font-weight: bold;
 }

@@ -18,7 +18,7 @@ const flattenedProfessorsList = computed(() => {
     if (Array.isArray(prof.expertises)) {
       prof.expertises.forEach(exp => {
         result.push({
-          id: prof.id, // 🌟 新增：把教授的 ID 也存起來，方便跳轉
+          id: prof.id, //存教授的 ID ，供跳轉
           professorName: prof.name,
           expertise: exp
         })
@@ -77,7 +77,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* 容器設定 (與教授專長頁面一致) */
+/* 容器設定 */
 .domain-view-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -88,22 +88,21 @@ onMounted(async () => {
   margin-bottom: 40px;
 }
 
-/* 🌟 現代化的領域名稱方框 */
 .domain-title-box {
   display: inline-block;
   margin-bottom: 45px;
   background-color: #FFFFFF;
-  border: 2px solid var(--fcu-maroon); /* 換成逢甲酒紅邊框 */
-  border-radius: 8px; /* 加上圓角 */
+  border: 2px solid var(--fcu-maroon);
+  border-radius: 8px;
   padding: 15px 40px;
-  box-shadow: 0 4px 15px rgba(138, 28, 34, 0.08); /* 帶有微微酒紅色的陰影 */
+  box-shadow: 0 4px 15px rgba(138, 28, 34, 0.08);
 }
 
 .domain-title-box h2 {
   margin: 0;
   font-size: 1.6rem;
   font-weight: bold;
-  color: var(--fcu-maroon); /* 字體也換成酒紅 */
+  color: var(--fcu-maroon);
   letter-spacing: 3px;
 }
 
@@ -111,27 +110,27 @@ onMounted(async () => {
 .professor-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
-  gap: 15px 40px; /* 稍微縮小上下間距，讓條列感更舒適 */
+  gap: 15px 40px;
 }
 
-/* 🌟 單筆教授資料樣式 (加入 Hover 與可點擊設計) */
+/* 教授資料樣式 */
 .professor-item {
   display: flex;
   align-items: center;
   font-size: 1.15rem;
   color: var(--text-dark);
   padding: 12px 18px;
-  border-radius: 8px; /* 給予隱形的圓角墊背 */
-  text-decoration: none; /* 移除超連結的底線 */
+  border-radius: 8px;
+  text-decoration: none;
   transition: all 0.2s ease;
   white-space: nowrap; 
 }
 
-/* 游標滑過的微互動 */
+/* 游標滑過的互動 */
 .professor-item:hover {
-  background-color: var(--iecs-blue-light); /* 淡藍底色 */
-  color: var(--iecs-blue); /* 字體轉為資工藍 */
-  transform: translateX(6px); /* 微微向右滑動 */
+  background-color: var(--iecs-blue-light);
+  color: var(--iecs-blue);
+  transform: translateX(6px);
 }
 
 /* 紅色圓點樣式 */
@@ -142,7 +141,7 @@ onMounted(async () => {
   transition: color 0.2s ease;
 }
 
-/* 當滑鼠移到整行時，圓點也跟著變色 */
+/* 圓點互動 */
 .professor-item:hover .dot {
   color: var(--iecs-blue);
 }

@@ -1,7 +1,7 @@
 // 設定後端 API 的基礎網址
 const BASE_URL = 'http://localhost:3000/api';
 
-// 取得所有教授清單
+// 教授清單
 export const getProfessors = async () => {
   try {
     const response = await fetch(`${BASE_URL}/professors`);
@@ -16,10 +16,9 @@ export const getProfessors = async () => {
   }
 };
 
-// 先把未來會用到的兩支 API 也寫好架構
+// 領域資料
 export const getProfessorsByDomain = async (domainName) => {
   try {
-    // 將中文領域名稱進行編碼，避免網址亂碼問題
     const encodedDomain = encodeURIComponent(domainName);
     const response = await fetch(`${BASE_URL}/domains/${encodedDomain}/professors`);
     
@@ -33,9 +32,9 @@ export const getProfessorsByDomain = async (domainName) => {
   }
 };
 
+// 教授個人資料
 export const getProfessorExpertises = async (id) => {
   try {
-    // 🌟 網址改成吃 id
     const response = await fetch(`${BASE_URL}/professors/${id}`);
     
     if (!response.ok) {

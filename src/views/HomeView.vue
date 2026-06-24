@@ -71,14 +71,14 @@ const goToDomain = (domainName) => {
 </template>
 
 <style scoped>
-/* 🌟 1. 建立安全範圍：限制最大寬度並置中，解決跑版問題 */
+/* 限制最大寬度並置中 */
 .home-view {
   max-width: 1100px;
   margin: 30px auto; 
   padding: 40px 60px;
-  background-color: rgba(255, 255, 255, 0.9); /* 微微透出後方浮水印 */
-  border: 2px solid var(--fcu-maroon); /* 保留你原本的酒紅大框線 */
-  border-radius: 12px; /* 加上一點圓角讓視覺更柔和 */
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--fcu-maroon);
+  border-radius: 12px;
   position: relative;
   z-index: 1;
 }
@@ -97,7 +97,6 @@ const goToDomain = (domainName) => {
   letter-spacing: 2px;
 }
 
-/* 統一的酒紅色小圓點 */
 .red-dot {
   display: inline-block;
   width: 12px;
@@ -112,16 +111,15 @@ const goToDomain = (domainName) => {
   margin-right: 10px;
 }
 
-/* 🌟 2. 領域方塊 Grid 排版：稍微拉寬間距 */
+/* 拉寬間距 */
 .domain-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
   gap: 30px 40px; 
-  max-width: 850px; /* 限制卡片區塊的最大寬度，避免過度拉伸 */
+  max-width: 850px;
   margin: 0 auto;
 }
 
-/* 🌟 3. 現代化卡片 UI */
 .domain-card {
   border: 1px solid var(--border-color);
   border-radius: 12px;
@@ -134,9 +132,9 @@ const goToDomain = (domainName) => {
 }
 
 .domain-card:hover {
-  transform: translateY(-5px); /* 滑鼠懸停時上浮 */
-  border-color: var(--iecs-blue); /* 邊框變成資工藍 */
-  box-shadow: 0 12px 24px rgba(47, 92, 169, 0.1); /* 浮現淡藍色陰影 */
+  transform: translateY(-5px);
+  border-color: var(--iecs-blue);
+  box-shadow: 0 12px 24px rgba(47, 92, 169, 0.1);
 }
 
 .domain-name {
@@ -151,10 +149,10 @@ const goToDomain = (domainName) => {
   padding: 0 25px 25px 25px;
   font-size: 0.95rem;
   color: var(--text-muted);
-  line-height: 1.6; /* 增加行高讓細項文字更容易閱讀 */
+  line-height: 1.6;
 }
 
-/* 🌟 4. 教授列表 Grid 排版：因為空間變大，改為 4 欄更緊湊 */
+/* 教授列表 Grid 排版 */
 .professor-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); 
@@ -162,7 +160,7 @@ const goToDomain = (domainName) => {
   padding: 0 20px;
 }
 
-/* 🌟 5. 教授名單微互動 */
+/* 教授名單互動 */
 .professor-item {
   display: flex;
   align-items: center;
@@ -177,9 +175,9 @@ const goToDomain = (domainName) => {
 }
 
 .professor-item:hover {
-  background-color: var(--iecs-blue-light); /* 墊上一層極淡的藍色背景 */
-  color: var(--iecs-blue); /* 文字變為資工藍 */
-  transform: translateX(4px); /* 微微向右滑動，暗示這是一個連結 */
+  background-color: var(--iecs-blue-light);
+  color: var(--iecs-blue);
+  transform: translateX(4px);
 }
 
 .loading-text {

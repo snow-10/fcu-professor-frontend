@@ -5,26 +5,19 @@ import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import { getProfessorExpertises } from '@/api/index.js'
 
 const route = useRoute()
-// 🌟 從網址列取得的是 ID
 const professorId = route.params.id
 
-// 準備變數來接後端的資料
 const professorName = ref('')
-const groupedExpertises = ref({}) // 直接接收後端分組好的物件
+const groupedExpertises = ref({}) 
 const isLoading = ref(true)
 const errorMessage = ref('')
 
 onMounted(async () => {
   try {
     isLoading.value = true
-    
-    // 傳入 ID 給 API
     const responseData = await getProfessorExpertises(professorId)
-    
-    // 🌟 直接把後端送來的資料塞進變數，不用自己算！
     professorName.value = responseData.data.name
     groupedExpertises.value = responseData.data.expertises
-    
   } catch (error) {
     errorMessage.value = '讀取教授資料失敗，請稍後再試。'
   } finally {
@@ -35,37 +28,44 @@ onMounted(async () => {
 
 <template>
   <div class="professor-view-container">
-    <Breadcrumbs currentPage="教授搜尋" />
+    <div class="breadcrumbs-wrapper">
+      <Breadcrumbs currentPage="教授搜尋" />
+    </div>
 
     <div v-if="isLoading" class="status">資料載入中...</div>
     <div v-else-if="errorMessage" class="status error">{{ errorMessage }}</div>
     <div v-else-if="Object.keys(groupedExpertises).length === 0" class="status">目前尚無此教授的專長資料。</div>
 
-    <div v-else class="layout-container">
+    <div v-else class="main-layout">
       
       <div class="left-column">
-        <div class="name-box">
-          <h2>{{ professorName }}</h2>
+        <div class="professor-card">
+          <div class="prof-name">{{ professorName }}</div>
+          <div class="prof-divider"></div>
+          <div class="prof-dept">資訊工程學系</div>
         </div>
       </div>
 
       <div class="right-column">
-        <div 
-          class="domain-group" 
-          v-for="(subjects, domain) in groupedExpertises" 
-          :key="domain"
-        >
-          <div class="domain-title">
-            <span class="dot">●</span> {{ domain }}
-          </div>
-          
-          <div class="subject-list">
-            <div 
-              class="subject-item" 
-              v-for="sub in subjects" 
-              :key="sub"
-            >
-              <span class="arrow">→</span> {{ sub }}
+        <div class="expertise-section">
+          <div 
+            class="group-cluster" 
+            v-for="(subjects, domain) in groupedExpertises" 
+            :key="domain"
+          >
+            <router-link :to="`/domain/${domain}`" class="cluster-title-link">
+              <span class="dot">●</span> 
+              {{ domain }}
+              <span class="hover-arrow">➔</span> </router-link>
+            
+            <div class="tags-container">
+              <span 
+                v-for="sub in subjects" 
+                :key="sub"
+                class="static-tag"
+              >
+                {{ sub }}
+              </span>
             </div>
           </div>
         </div>
@@ -76,91 +76,142 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* 1. 調整整體容器，把最大寬度放寬，讓內容能更往左右兩側延伸 */
+/* 容器設定 */
 .professor-view-container {
-  max-width: 1400px; /* 原本是 1200px，放寬讓整體往左靠 */
-  width: 80%; /* 讓畫面在不同螢幕下都能盡量向兩邊延展 */
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0px 100px; /* 讓內容在左右兩側有一點空白 */
+  padding: 30px 40px;
 }
 
-/* 2. 增加左右兩欄的間距，把右欄往右推 */
-.layout-container {
-  display: flex;
-  gap: 150px; /* 🌟 關鍵修改：從 50px 改為 150px，大幅拉開左右距離 */
-  margin-top: 40px;
-  align-items: flex-start;
-  width: 100%;
+.breadcrumbs-wrapper {
+  margin-bottom: 40px;
 }
 
-.left-column {
-  flex: 0 0 auto;
+/* 雙欄排版 */
+.main-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr; /* 左側固定 320px，右側自動填滿 */
+  gap: 60px;
+  align-items: start;
 }
 
-.name-box {
-  border: 2px solid #7d212a;
-  padding: 20px 50px;
-  background-color: #fff;
+/* --- 左側：教授卡片 --- */
+.professor-card {
+  background: #FFFFFF;
+  border: 2px solid var(--iecs-blue);
+  border-radius: 8px;
+  padding: 35px 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(47, 92, 169, 0.08);
 }
 
-.name-box h2 {
-  margin: 0;
-  font-size: 28px;
-  letter-spacing: 4px; /* 姓名也可以稍微散開一點 */
-}
-
-.right-column {
-  flex: 1;
-  padding-top: 10px;
-  min-width: 600px;
-}
-
-/* --- 3. 處理「字散開一些」的需求 --- */
-
-.domain-group {
-  margin-bottom: 45px; /* 增加各個領域群組之間的上下距離 (原本 30px) */
-}
-
-.domain-title {
-  font-size: 20px;
+.prof-name {
+  font-size: 2.2rem;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  letter-spacing: 3px; /* 🌟 增加領域名稱的字距 */
+  color: var(--text-dark);
+  letter-spacing: 6px;
+  margin-bottom: 15px;
+  text-indent: 6px;
 }
 
-.dot {
-  color: #7d212a;
-  font-size: 22px;
-  margin-right: 12px;
+.prof-divider {
+  height: 2px;
+  background-color: var(--iecs-blue);
+  width: 60%;
+  margin: 0 auto 20px auto;
+  opacity: 0.3;
 }
 
-.subject-list {
-  padding-left: 32px;
+.prof-dept {
+  font-size: 1.1rem;
+  color: var(--iecs-blue);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* --- 右側：學群與標籤雲 --- */
+.expertise-section {
   display: flex;
   flex-direction: column;
-  gap: 18px; /* 🌟 增加各個科目之間的上下距離 (原本 10px) */
+  gap: 35px;
 }
 
-.subject-item {
-  font-size: 18px;
-  color: #333;
-  font-weight: 500;
-  letter-spacing: 2px; /* 🌟 增加科目名稱的字距 */
+.group-cluster {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 25px;
 }
 
-.arrow {
-  color: #7d212a;
-  margin-right: 10px;
+.group-cluster:last-child {
+  border-bottom: none;
+}
+
+/* --- 學群標題 (現在是超連結) --- */
+.cluster-title-link {
+  font-size: 1.25rem;
+  color: var(--fcu-maroon);
   font-weight: bold;
+  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none; /* 移除超連結預設底線 */
+  transition: opacity 0.2s ease;
+}
+
+.cluster-title-link:hover {
+  opacity: 0.8; /* 游標滑過時稍微變淡 */
+}
+
+.cluster-title-link .dot {
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+/* 標題旁的小箭頭動畫 */
+.hover-arrow {
+  font-size: 1rem;
+  margin-left: 8px;
+  opacity: 0; /* 預設隱藏 */
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+  color: var(--fcu-maroon);
+}
+
+.cluster-title-link:hover .hover-arrow {
+  opacity: 1; /* 滑過時顯示並往右滑動 */
+  transform: translateX(0);
+}
+
+/* 標籤排版 (橫向排列) */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap; /* 自動換行 */
+  gap: 12px;
+}
+
+.static-tag {
+  display: inline-block;
+  background-color: var(--iecs-blue-light);
+  color: var(--iecs-blue);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: default; /* 🌟 改為預設游標，表示這不是按鈕 */
+  transition: background-color 0.2s ease;
+}
+
+/* 保留非常輕微的 Hover 變色增加畫面質感，但不會有浮起的按鈕感 */
+.static-tag:hover {
+  background-color: #E2EAF5; 
 }
 
 .status {
   font-size: 18px;
-  margin-top: 20px;
+  color: #666;
+  padding: 20px 0;
 }
+
 .error {
   color: red;
 }

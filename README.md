@@ -9,17 +9,6 @@
 - **專長標籤雲與反向搜尋**：教授個人頁面以標籤雲 (Tag Cloud) 呈現專長，並支援點擊學群標題快速反向查找同領域的其他教授。
 - **前後端分離架構**：前端 Vue 3 搭配 Vite 建置，後端 Node.js + SQLite 提供輕量且高效的 API 服務。
 
-## 📸 畫面截圖 (Screenshots)
-
-*(請將以下圖片路徑替換為你實際存放在 github 倉庫中的截圖路徑)*
-
-- **首頁總覽**
-  ![Home Page](./docs/images/home-screenshot.png)
-- **領域搜尋結果**
-  ![Domain Search](./docs/images/domain-screenshot.png)
-- **教授個人專長頁面**
-  ![Professor Profile](./docs/images/professor-screenshot.png)
-
 ## 🛠️ 技術堆疊 (Tech Stack)
 
 **Frontend:**
